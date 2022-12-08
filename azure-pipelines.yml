@@ -61,7 +61,7 @@ stages:
                 - task: HelmDeploy@0
                   inputs:
                     # Azure Container Registry
-                    azureSubscriptionForACR: "0531dae3-35f1-4131-87df-71f0455cf088"
+                    azureSubscriptionForACR: "LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)"
                     azureResourceGroupForACR: "ACW"
                     azureContainerRegistry: "nginxplusingress"
                     connectionType: 'Azure Resource Manager'

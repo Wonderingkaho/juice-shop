@@ -71,13 +71,13 @@ steps:
       chartType: 'Name'
       chartName: 'values.yaml'
 
-  - task: KubernetesManifest@0
-    displayName: Create DashboardSecret
-    inputs:
-      action: deploy
-      namespace: 'demo'
-      manifests: |
-        $(Pipeline.Workspace)/manifests/juice-shop-dashboard-secret.yml
+#  - task: KubernetesManifest@0
+#    displayName: Create DashboardSecret
+#    inputs:
+#      action: deploy
+#      namespace: 'demo'
+#      manifests: |
+#        $(Pipeline.Workspace)/manifests/juice-shop-dashboard-secret.yml
 
               # - task: KubernetesManifest@0
               #   displayName: Deploy to Kubernetes cluster

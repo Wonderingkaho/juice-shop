@@ -69,6 +69,23 @@ jobs:
                 command: login
 
             - task: HelmDeploy@0
+              displayName: Helm login
+              inputs:
+                # Azure Container Registry
+                azureSubscriptionForACR: $(azureSubscription)
+                azureResourceGroupForACR: "ACW"
+                azureContainerRegistry: "nginxplusingress"
+                connectionType: 'Azure Resource Manager'
+                azureSubscription: $(azureSubscription)
+                useClusterAdmin: true
+                azureResourceGroup: 'ACW'
+                kubernetesCluster: 'nginx-plus-ingress'
+                command: init
+                upgradetiller: true
+                waitForExecution: true
+                arguments: --client-only
+
+            - task: HelmDeploy@0
               displayName: Helm init
               inputs:
                 azureResourceGroup: 'ACW'
@@ -81,15 +98,6 @@ jobs:
             - task: HelmDeploy@0
               displayName: Helm Deploy
               inputs:
-                # Azure Container Registry
-                azureSubscriptionForACR: $(azureSubscription)
-                azureResourceGroupForACR: "ACW"
-                azureContainerRegistry: "nginxplusingress"
-                connectionType: 'Azure Resource Manager'
-                azureSubscription: $(azureSubscription)
-                azureResourceGroup: 'ACW'
-                kubernetesCluster: 'nginx-plus-ingress'
-                useClusterAdmin: true
                 namespace: 'test'
                 command: 'install'
                 chartType: 'Name'

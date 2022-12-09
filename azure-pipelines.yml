@@ -45,39 +45,43 @@ variables:
   #       artifact: manifests
 
 
-#
 #  - stage: Deploy
 #    displayName: Deploy stage
-#jobs:
-#  - deployment: Deploy
-#    displayName: Deploy
-pool:
-  vmImage: $(vmImageName)
-steps:
-  - task: HelmDeploy@0
-    displayName: Helm Deploy
-    inputs:
-      # Azure Container Registry
-      azureSubscriptionForACR: "LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)"
-      azureResourceGroupForACR: "ACW"
-      azureContainerRegistry: "nginxplusingress"
-      connectionType: 'Azure Resource Manager'
-      azureSubscription: 'LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)'
-      azureResourceGroup: 'ACW'
-      kubernetesCluster: 'nginx-plus-ingress'
-      useClusterAdmin: true
-      namespace: 'demo'
-      command: 'install'
-      chartType: 'Name'
-      chartName: 'values.yaml'
+jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'Wonderingkahojuiceshop-7563.test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: HelmDeploy@0
+              displayName: Helm Deploy
+              inputs:
+                # Azure Container Registry
+                azureSubscriptionForACR: "LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)"
+                azureResourceGroupForACR: "ACW"
+                azureContainerRegistry: "nginxplusingress"
+                connectionType: 'Azure Resource Manager'
+                azureSubscription: 'LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)'
+                azureResourceGroup: 'ACW'
+                kubernetesCluster: 'nginx-plus-ingress'
+                useClusterAdmin: true
+                namespace: 'demo'
+                command: 'install'
+                chartType: 'Name'
+                chartName: 'values.yaml'
 
-#  - task: KubernetesManifest@0
-#    displayName: Create DashboardSecret
-#    inputs:
-#      action: deploy
-#      namespace: 'demo'
-#      manifests: |
-#        $(Pipeline.Workspace)/manifests/juice-shop-dashboard-secret.yml
+            - task: KubernetesManifest@0
+              displayName: Create DashboardSecret
+              inputs:
+                action: deploy
+                namespace: 'demo'
+                manifests: |
+                  $(Pipeline.Workspace)/manifests/juice-shop-dashboard-secret.yml
+
 
               # - task: KubernetesManifest@0
               #   displayName: Deploy to Kubernetes cluster

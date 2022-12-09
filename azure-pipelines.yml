@@ -17,6 +17,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'nginxplusingress2091b936-auth'
+  azureSubscription: 'LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)'
 
   # Agent VM image name
   vmImageName: 'Default'
@@ -61,18 +62,18 @@ jobs:
               displayName: Helm Deploy
               inputs:
                 # Azure Container Registry
-                azureSubscriptionForACR: "LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)"
+                azureSubscriptionForACR: $(azureSubscription)
                 azureResourceGroupForACR: "ACW"
                 azureContainerRegistry: "nginxplusingress"
                 connectionType: 'Azure Resource Manager'
-                azureSubscription: 'LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)'
+                azureSubscription: $(azureSubscription)
                 azureResourceGroup: 'ACW'
                 kubernetesCluster: 'nginx-plus-ingress'
                 useClusterAdmin: true
                 namespace: 'test'
                 command: 'install'
-                chartType: 'FilePath'
-                chartPath: $(Pipeline.Workspace)
+                chartType: 'Name'
+                chartName: 'helm/juice-shop'
                 valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0

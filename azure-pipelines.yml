@@ -68,8 +68,14 @@ jobs:
                 kubernetesCluster: 'nginx-plus-ingress'
                 command: login
 
+            # Helm tool installer v1
+            # Install Helm on an agent machine.
+            - task: HelmInstaller@1
+              inputs:
+                helmVersionToInstall: 'latest'
+
             - task: HelmDeploy@0
-              displayName: Helm login
+              displayName: Helm init
               inputs:
                 # Azure Container Registry
                 azureSubscriptionForACR: $(azureSubscription)
@@ -78,16 +84,6 @@ jobs:
                 connectionType: 'Azure Resource Manager'
                 azureSubscription: $(azureSubscription)
                 useClusterAdmin: true
-                azureResourceGroup: 'ACW'
-                kubernetesCluster: 'nginx-plus-ingress'
-                command: init
-                upgradetiller: true
-                waitForExecution: true
-                arguments: --client-only
-
-            - task: HelmDeploy@0
-              displayName: Helm init
-              inputs:
                 azureResourceGroup: 'ACW'
                 kubernetesCluster: 'nginx-plus-ingress'
                 command: init

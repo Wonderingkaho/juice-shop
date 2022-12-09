@@ -51,7 +51,7 @@ jobs:
   - deployment: Deploy
     displayName: Deploy
     pool:
-      vmImage: $(vmImageName)
+      name: $(vmImageName)
     environment: 'Wonderingkahojuiceshop-7563.test'
     strategy:
       runOnce:

@@ -59,6 +59,16 @@ jobs:
         deploy:
           steps:
             - task: HelmDeploy@0
+              displayName: Helm init
+              inputs:
+                azureResourceGroup: 'ACW'
+                kubernetesCluster: 'nginx-plus-ingress'
+                command: init
+                upgradetiller: true
+                waitForExecution: true
+                arguments: --client-only
+
+            - task: HelmDeploy@0
               displayName: Helm Deploy
               inputs:
                 # Azure Container Registry

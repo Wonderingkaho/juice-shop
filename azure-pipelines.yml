@@ -69,10 +69,11 @@ jobs:
                 azureResourceGroup: 'ACW'
                 kubernetesCluster: 'nginx-plus-ingress'
                 useClusterAdmin: true
-                namespace: 'demo'
+                namespace: 'test'
                 command: 'install'
-                chartType: 'Name'
-                chartName: 'values.yaml'
+                chartType: 'FilePath'
+                chartPath: $(Pipeline.Workspace)
+                valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0
               displayName: Create DashboardSecret

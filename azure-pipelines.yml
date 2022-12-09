@@ -19,7 +19,7 @@ variables:
   imagePullSecret: 'nginxplusingress2091b936-auth'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'Default'
 
 
 #stages:

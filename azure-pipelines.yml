@@ -65,6 +65,7 @@ jobs:
                 azureSubscriptionEndpoint: $(azureSubscription)
                 azureResourceGroup: 'ACW'
                 useClusterAdmin: true
+                kubernetesCluster: 'nginx-plus-ingress'
                 command: login
 
             - task: HelmDeploy@0

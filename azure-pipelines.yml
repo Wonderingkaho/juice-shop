@@ -77,7 +77,6 @@ jobs:
 #            - task: HelmDeploy@0
 #              displayName: Helm init
 #              inputs:
-#
 #                command: init
 #                upgradetiller: true
 #                waitForExecution: true
@@ -98,7 +97,7 @@ jobs:
                 namespace: 'test'
                 command: 'install'
                 chartType: 'Name'
-                chartName: 'helm/juice-shop'
+                chartName: 'nginxplusingress.azurecr.io/helm/juice-shop'
                 valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0

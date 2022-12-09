@@ -58,6 +58,13 @@ jobs:
       runOnce:
         deploy:
           steps:
+            - task: Kubernetes@1
+              displayName: Login to Kubernetes
+              inputs:
+                connectionType: 'Azure Resource Manager'
+                azureSubscriptionEndpoint: $(azureSubscription)
+                command: login
+
             - task: HelmDeploy@0
               displayName: Helm init
               inputs:

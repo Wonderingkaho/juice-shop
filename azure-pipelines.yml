@@ -63,6 +63,8 @@ jobs:
               inputs:
                 connectionType: 'Azure Resource Manager'
                 azureSubscriptionEndpoint: $(azureSubscription)
+                azureResourceGroup: 'ACW'
+                useClusterAdmin: true
                 command: login
 
             - task: HelmDeploy@0

@@ -97,7 +97,7 @@ jobs:
                 namespace: 'test'
                 command: 'install'
                 chartType: 'Name'
-                chartName: 'nginxplusingress.azurecr.io/juice-shop'
+                chartName: 'helm/juice-shop'
                 valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0

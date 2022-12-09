@@ -74,8 +74,17 @@ jobs:
               inputs:
                 helmVersionToInstall: 'latest'
 
+#            - task: HelmDeploy@0
+#              displayName: Helm init
+#              inputs:
+#
+#                command: init
+#                upgradetiller: true
+#                waitForExecution: true
+#                arguments: --client-only
+
             - task: HelmDeploy@0
-              displayName: Helm init
+              displayName: Helm Deploy
               inputs:
                 # Azure Container Registry
                 azureSubscriptionForACR: $(azureSubscription)
@@ -86,14 +95,6 @@ jobs:
                 useClusterAdmin: true
                 azureResourceGroup: 'ACW'
                 kubernetesCluster: 'nginx-plus-ingress'
-                command: init
-                upgradetiller: true
-                waitForExecution: true
-                arguments: --client-only
-
-            - task: HelmDeploy@0
-              displayName: Helm Deploy
-              inputs:
                 namespace: 'test'
                 command: 'install'
                 chartType: 'Name'

@@ -23,7 +23,7 @@ variables:
   HELM_EXPERIMENTAL_OCI: 1
   namespaces: 'demo'
   agentPath: '/azp/_work/1/juice-shop/'
-  command: 'delete'
+
 
   # Agent VM image name
   vmImageName: 'Default'
@@ -64,28 +64,28 @@ jobs:
                   cd /azp/_work/1/juice-shop
                   git pull
 
-            - task: HelmDeploy@0
-              displayName: Helm Deploy
-              inputs:
-                # Azure Container Registry
-                azureSubscriptionEndpointForACR: $(azureSubscription)
-                azureResourceGroupForACR: "ACW"
-                azureContainerRegistry: "nginxplusingress"
-                connectionType: 'Azure Resource Manager'
-                azureSubscription: $(azureSubscription)
-                useClusterAdmin: true
-                azureResourceGroup: 'ACW'
-                kubernetesCluster: 'nginx-plus-ingress'
-                namespace: $(namespaces)
-                command: $(command)
-                chartType: 'FilePath'
-                chartPath: '$(agentPath)/chart/juice-shop-3.14.3.tgz'
-                releaseName: 'juice-shop'
+#            - task: HelmDeploy@0
+#              displayName: Helm Deploy
+#              inputs:
+#                # Azure Container Registry
+#                azureSubscriptionEndpointForACR: $(azureSubscription)
+#                azureResourceGroupForACR: "ACW"
+#                azureContainerRegistry: "nginxplusingress"
+#                connectionType: 'Azure Resource Manager'
+#                azureSubscription: $(azureSubscription)
+#                useClusterAdmin: true
+#                azureResourceGroup: 'ACW'
+#                kubernetesCluster: 'nginx-plus-ingress'
+#                namespace: $(namespaces)
+#                command: upgrade
+#                chartType: 'FilePath'
+#                chartPath: '$(agentPath)/chart/juice-shop-3.14.3.tgz'
+#                releaseName: 'juice-shop'
 
             - task: KubernetesManifest@0
               displayName: KubernetesManifest
               inputs:
-                action: $(command)
+                action: delete
                 namespace: $(namespaces)
                 manifests: |
                   $(agentPath)/manifests/juice-shop-dashboard-secret.yaml

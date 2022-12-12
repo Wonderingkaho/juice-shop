@@ -98,7 +98,7 @@ jobs:
               displayName: Delete
               inputs:
                 action: delete
-                arguments: deployment juice-shop syslog
+                arguments: deployment syslog && service syslog-svc
                 namespace: $(namespaces)
 
 

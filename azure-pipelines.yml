@@ -81,9 +81,9 @@ jobs:
                 azureSubscriptionForACR: $(azureSubscription)
                 azureResourceGroupForACR: "ACW"
                 azureContainerRegistry: "nginxplusingress"
-                azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-                azureResourceGroup: $(azureResourceGroup)
-                kubernetesCluster: $(kubernetesCluster)
+                azureSubscriptionEndpoint: $(azureSubscription)
+                azureResourceGroup: 'ACW'
+                kubernetesCluster: 'nginx-plus-ingress'
                 command: ls
                 arguments: --all
 

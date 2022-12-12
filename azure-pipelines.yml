@@ -77,13 +77,32 @@ jobs:
               inputs:
                 helmVersionToInstall: 'latest'
 
-            - task: AzureCLI@2
-              displayName: Login to Azure Container Registry
-              inputs:
-                scriptType: bash
-                scriptLocation: inlineScript
-                inlineScript: |
-                  helm registry login nginxplusingress.azurecr.io --username $(acr.pull.username) --password $(acr.pull.password)
+#            - task: AzureCLI@2
+#              displayName: Login to Azure Container Registry
+#              inputs:
+#                scriptType: bash
+#                scriptLocation: inlineScript
+#                inlineScript: |
+#                  helm registry login nginxplusingress.azurecr.io --username $(acr.pull.username) --password $(acr.pull.password)
+
+#            - task: HelmDeploy@0
+#              displayName: Helm Deploy
+#              inputs:
+#                # Azure Container Registry
+#                azureSubscriptionEndpointForACR: $(azureSubscription)
+#                azureResourceGroupForACR: "ACW"
+#                azureContainerRegistry: "nginxplusingress"
+#                connectionType: 'Azure Resource Manager'
+#                azureSubscription: $(azureSubscription)
+#                useClusterAdmin: true
+#                azureResourceGroup: 'ACW'
+#                kubernetesCluster: 'nginx-plus-ingress'
+#                namespace: 'test'
+#                command: 'install'
+#                chartType: 'Name'
+#                chartName: 'charts/helm/juice-shop'
+#                chartVersion: '3.14.3'
+#                valueFile: 'values.yaml'
 
             - task: HelmDeploy@0
               displayName: Helm Deploy
@@ -99,10 +118,9 @@ jobs:
                 kubernetesCluster: 'nginx-plus-ingress'
                 namespace: 'test'
                 command: 'install'
-                chartType: 'Name'
-                chartName: 'charts/helm/juice-shop'
+                chartType: 'FilePath'
+                chartPath: '/azp/_work/_tool/helm/3.10.2/x64/linux-amd64/juice-shop'
                 chartVersion: '3.14.3'
-                valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0
               displayName: Create DashboardSecret

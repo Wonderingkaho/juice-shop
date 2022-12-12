@@ -18,6 +18,9 @@ variables:
   tag: '$(Build.BuildId)'
   imagePullSecret: 'nginxplusingress2091b936-auth'
   azureSubscription: 'LHK - Azure PoC -Network(0531dae3-35f1-4131-87df-71f0455cf088)'
+  acr.name: nginxplusingress
+  acr.repo.name: helm/juice-shop
+  HELM_EXPERIMENTAL_OCI: 1
 
   # Agent VM image name
   vmImageName: 'Default'
@@ -89,7 +92,7 @@ jobs:
                 namespace: 'test'
                 command: 'install'
                 chartType: 'Name'
-                chartName: 'nginxplusingress.azurecr.io/helm'
+                chartName: 'juice-shop'
                 valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0

@@ -119,8 +119,7 @@ jobs:
                 namespace: 'test'
                 command: 'install'
                 chartType: 'FilePath'
-                chartPath: '/azp/_work/_tool/helm/3.10.2/x64/linux-amd64/juice-shop'
-                chartVersion: '3.14.3'
+                chartPath: '/azp/_work/_tool/helm/3.10.2/x64/linux-amd64/juice-shop-3.14.3.tgz'
 
             - task: KubernetesManifest@0
               displayName: Create DashboardSecret

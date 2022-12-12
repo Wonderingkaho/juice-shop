@@ -77,11 +77,20 @@ jobs:
               inputs:
                 helmVersionToInstall: 'latest'
 
+            - task: AzureCLI@2
+              displayName: Login to Azure Container Registry
+              inputs:
+                azureSubscription: $(azureSubscription)
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az acr login --name $(containerRegistry).azurecr.io
+
             - task: HelmDeploy@0
               displayName: Helm Deploy
               inputs:
                 # Azure Container Registry
-                azureSubscriptionForACR: $(azureSubscription)
+                azureSubscriptionEndpointForACR: $(azureSubscription)
                 azureResourceGroupForACR: "ACW"
                 azureContainerRegistry: "nginxplusingress"
                 connectionType: 'Azure Resource Manager'
@@ -92,7 +101,8 @@ jobs:
                 namespace: 'test'
                 command: 'install'
                 chartType: 'Name'
-                chartName: 'charts/helm/juice-shop:3.14.3'
+                chartName: 'charts/helm/juice-shop'
+                chartVersion: '3.14.3'
                 valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0

@@ -132,6 +132,7 @@ jobs:
             - task: AzureCLI@2
               displayName: Create DashboardSecret
               inputs:
+                azureSubscription: $(azureSubscription)
                 scriptType: bash
                 scriptLocation: inlineScript
                 inlineScript: |

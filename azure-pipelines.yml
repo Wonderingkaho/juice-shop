@@ -121,6 +121,11 @@ jobs:
                 chartType: 'FilePath'
                 chartPath: '/azp/_work/1/juice-shop/chart/juice-shop-3.14.3.tgz'
 
+            - task: DownloadPipelineArtifact@2
+              inputs:
+                artifactName: 'manifests'
+                downloadPath: '$(System.ArtifactsDirectory)/manifests'
+
             - task: KubernetesManifest@0
               displayName: Create DashboardSecret
               inputs:

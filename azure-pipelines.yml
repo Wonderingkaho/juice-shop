@@ -84,7 +84,7 @@ jobs:
                 scriptType: bash
                 scriptLocation: inlineScript
                 inlineScript: |
-                  az acr login --name $(containerRegistry).azurecr.io
+                  az acr login --name nginxplusingress.azurecr.io
 
             - task: HelmDeploy@0
               displayName: Helm Deploy

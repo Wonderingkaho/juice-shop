@@ -77,20 +77,12 @@ jobs:
               inputs:
                 helmVersionToInstall: 'latest'
 
-            # Docker CLI installer v0
-            # Install Docker CLI on agent machine.
-            - task: DockerInstaller@0
-              inputs:
-                dockerVersion: '17.09.0-ce' # string. Required. Docker Version. Default: 17.09.0-ce.
-
             - task: AzureCLI@2
               displayName: Login to Azure Container Registry
-              inputs:
-                azureSubscription: $(azureSubscription)
-                scriptType: bash
-                scriptLocation: inlineScript
-                inlineScript: |
-                  az acr login --name nginxplusingress.azurecr.io
+              input:
+                targetType: inline
+                script:
+                  helm registry login nginxplusingress.azurecr.io --username $(acr.pull.username) --password $(acr.pull.password)
 
             - task: HelmDeploy@0
               displayName: Helm Deploy

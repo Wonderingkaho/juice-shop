@@ -1,0 +1,18 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: juice-shop
+spec:
+  host: juice-shop.acwlab.azure
+  tls:
+    secret: juice-shop-general-tls
+  #  policies:
+  #  - name: waf-policy
+  upstreams:
+    - name: juice-shop
+      service: juice-shop
+      port: 3000
+  routes:
+    - path: /
+      action:
+        pass: juice-shop

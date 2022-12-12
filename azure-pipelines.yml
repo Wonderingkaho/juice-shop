@@ -89,7 +89,7 @@ jobs:
                 namespace: 'test'
                 command: 'install'
                 chartType: 'FilePath'
-                chartPath: '$(Pipeline.Workspace)/'
+                chartPath: '$(Pipeline.Workspace)/chart/'
                 releaseName: 'juice-shop'
 
             - task: KubernetesManifest@0

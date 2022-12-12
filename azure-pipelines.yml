@@ -104,6 +104,16 @@ jobs:
 #                chartVersion: '3.14.3'
 #                valueFile: 'values.yaml'
 
+            - task: AzureCLI@2
+              displayName: Clone Project
+              inputs:
+                azureSubscription: $(azureSubscription)
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  cd /azp/_work/1/
+                  git clone https://github.com/Wonderingkaho/juice-shop.git
+
             - task: HelmDeploy@0
               displayName: Helm Deploy
               inputs:
@@ -128,14 +138,8 @@ jobs:
                 namespace: 'test'
                 manifests: |
                   /azp/_work/1/juice-shop/manifests/juice-shop-dashboard-secret.yaml
+                  /azp/_work/1/juice-shop/manifests/virtual-server.yaml
 
-#            - task: AzureCLI@2
-#              displayName: Create DashboardSecret
-#              inputs:
-#                azureSubscription: $(azureSubscription)
-#                scriptType: bash
-#                scriptLocation: inlineScript
-#                inlineScript: |
-#                  kubectl apply -f /azp/_work/1/juice-shop/manifests/juice-shop-dashboard-secret.yaml -n test
+
 
 

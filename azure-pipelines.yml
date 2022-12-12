@@ -74,13 +74,18 @@ jobs:
               inputs:
                 helmVersionToInstall: 'latest'
 
-#            - task: HelmDeploy@0
-#              displayName: Helm init
-#              inputs:
-#                command: init
-#                upgradetiller: true
-#                waitForExecution: true
-#                arguments: --client-only
+            - task: HelmDeploy@0
+              displayName: Helm list
+              inputs:
+                # Azure Container Registry
+                azureSubscriptionForACR: $(azureSubscription)
+                azureResourceGroupForACR: "ACW"
+                azureContainerRegistry: "nginxplusingress"
+                azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+                azureResourceGroup: $(azureResourceGroup)
+                kubernetesCluster: $(kubernetesCluster)
+                command: ls
+                arguments: --all
 
             - task: HelmDeploy@0
               displayName: Helm Deploy

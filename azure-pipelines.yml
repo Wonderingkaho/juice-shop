@@ -48,8 +48,6 @@ jobs:
                 kubernetesCluster: 'nginx-plus-ingress'
                 command: login
 
-            # Helm tool installer v1
-            # Install Helm on an agent machine.
             - task: HelmInstaller@1
               inputs:
                 helmVersionToInstall: 'latest'

@@ -79,7 +79,7 @@ jobs:
 
             - task: AzureCLI@2
               displayName: Login to Azure Container Registry
-              input:
+              inputs:
                 targetType: inline
                 script:
                   helm registry login nginxplusingress.azurecr.io --username $(acr.pull.username) --password $(acr.pull.password)

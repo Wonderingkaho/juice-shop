@@ -23,6 +23,7 @@ variables:
   HELM_EXPERIMENTAL_OCI: 1
   namespaces: 'demo'
   agentPath: '/azp/_work/1/juice-shop/'
+  command: 'delete'
 
   # Agent VM image name
   vmImageName: 'Default'
@@ -53,25 +54,6 @@ jobs:
               inputs:
                 helmVersionToInstall: 'latest'
 
-#            - task: HelmDeploy@0
-#              displayName: Helm Deploy
-#              inputs:
-#                # Azure Container Registry
-#                azureSubscriptionEndpointForACR: $(azureSubscription)
-#                azureResourceGroupForACR: "ACW"
-#                azureContainerRegistry: "nginxplusingress"
-#                connectionType: 'Azure Resource Manager'
-#                azureSubscription: $(azureSubscription)
-#                useClusterAdmin: true
-#                azureResourceGroup: 'ACW'
-#                kubernetesCluster: 'nginx-plus-ingress'
-#                namespace: $(namespaces)
-#                command: 'install'
-#                chartType: 'Name'
-#                chartName: 'charts/helm/juice-shop'
-#                chartVersion: '3.14.3'
-#                valueFile: 'values.yaml'
-
             - task: AzureCLI@2
               displayName: Clone Project
               inputs:
@@ -95,7 +77,7 @@ jobs:
                 azureResourceGroup: 'ACW'
                 kubernetesCluster: 'nginx-plus-ingress'
                 namespace: $(namespaces)
-                command: 'upgrade'
+                command: $(command)
                 chartType: 'FilePath'
                 chartPath: '$(agentPath)/chart/juice-shop-3.14.3.tgz'
                 releaseName: 'juice-shop'
@@ -103,7 +85,7 @@ jobs:
             - task: KubernetesManifest@0
               displayName: KubernetesManifest
               inputs:
-                action: deploy
+                action: $(command)
                 namespace: $(namespaces)
                 manifests: |
                   $(agentPath)/manifests/juice-shop-dashboard-secret.yaml

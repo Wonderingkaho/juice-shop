@@ -111,8 +111,8 @@ jobs:
                 scriptType: bash
                 scriptLocation: inlineScript
                 inlineScript: |
-                  cd /azp/_work/1/
-                  git clone https://github.com/Wonderingkaho/juice-shop.git
+                  cd /azp/_work/1/juice-shop
+                  git pull
 
             - task: HelmDeploy@0
               displayName: Helm Deploy

@@ -61,7 +61,7 @@ jobs:
 
             - task: HelmInstaller@1
               inputs:
-                helmVersionToInstall: 'latest'
+                helmVersionToInstall: '3.9.4'
 
             - task: HelmDeploy@0
               displayName: Helm Deploy

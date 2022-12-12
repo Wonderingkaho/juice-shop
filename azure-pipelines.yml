@@ -88,9 +88,9 @@ jobs:
                 kubernetesCluster: 'nginx-plus-ingress'
                 namespace: 'test'
                 command: 'install'
-                chartType: 'FilePath'
-                chartPath: '$(build.stagingdirectory)/chart/'
-                releaseName: 'juice-shop'
+                chartType: 'Name'
+                chartName: 'nginxplusingress.azurecr.io/helm/juice-shop'
+                valueFile: 'values.yaml'
 
             - task: KubernetesManifest@0
               displayName: Create DashboardSecret

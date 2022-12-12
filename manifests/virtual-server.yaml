@@ -3,7 +3,7 @@ kind: VirtualServer
 metadata:
   name: juice-shop
 spec:
-  host: juice-shoptest.acwlab.azure
+  host: juice-shop.acwlab.azure
   tls:
     secret: juice-shop-general-tls
   #  policies:

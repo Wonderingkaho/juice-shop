@@ -21,6 +21,8 @@ variables:
   acr.name: nginxplusingress
   acr.repo.name: helm/juice-shop
   HELM_EXPERIMENTAL_OCI: 1
+  namespaces: demo
+  agentPath: '/azp/_work/1/juice-shop/'
 
   # Agent VM image name
   vmImageName: 'Default'
@@ -63,7 +65,7 @@ jobs:
 #                useClusterAdmin: true
 #                azureResourceGroup: 'ACW'
 #                kubernetesCluster: 'nginx-plus-ingress'
-#                namespace: 'test'
+#                namespace: $(namespaces)
 #                command: 'install'
 #                chartType: 'Name'
 #                chartName: 'charts/helm/juice-shop'
@@ -92,20 +94,25 @@ jobs:
                 useClusterAdmin: true
                 azureResourceGroup: 'ACW'
                 kubernetesCluster: 'nginx-plus-ingress'
-                namespace: 'test'
+                namespace: $(namespaces)
                 command: 'install'
                 chartType: 'FilePath'
-                chartPath: '/azp/_work/1/juice-shop/chart/juice-shop-3.14.3.tgz'
+                chartPath: '$(agentPath)/chart/juice-shop-3.14.3.tgz'
                 releaseName: 'juice-shop'
 
             - task: KubernetesManifest@0
-              displayName: Create DashboardSecret
+              displayName: KubernetesManifest
               inputs:
                 action: deploy
-                namespace: 'test'
+                namespace: $(namespaces)
                 manifests: |
-                  /azp/_work/1/juice-shop/manifests/juice-shop-dashboard-secret.yaml
-                  /azp/_work/1/juice-shop/manifests/virtual-server.yaml
+                  $(agentPath)/manifests/juice-shop-dashboard-secret.yaml
+                  $(agentPath)/manifests/virtual-server.yaml
+                  $(agentPath)/manifests/waf.yaml
+                  $(agentPath)/manifests/ap-dataguard-alarm-policy.yaml
+                  $(agentPath)/manifests/ap-apple-uds.yaml
+                  $(agentPath)/manifests/syslog.yaml
+                  $(agentPath)/manifests/ap-logconf.yaml
 
 
 

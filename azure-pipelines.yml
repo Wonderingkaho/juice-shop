@@ -95,7 +95,7 @@ jobs:
                 azureResourceGroup: 'ACW'
                 kubernetesCluster: 'nginx-plus-ingress'
                 namespace: $(namespaces)
-                command: 'install'
+                command: 'upgrade'
                 chartType: 'FilePath'
                 chartPath: '$(agentPath)/chart/juice-shop-3.14.3.tgz'
                 releaseName: 'juice-shop'

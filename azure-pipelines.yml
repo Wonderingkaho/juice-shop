@@ -75,19 +75,6 @@ jobs:
                 helmVersionToInstall: 'latest'
 
             - task: HelmDeploy@0
-              displayName: Helm list
-              inputs:
-                # Azure Container Registry
-                azureSubscriptionForACR: $(azureSubscription)
-                azureResourceGroupForACR: "ACW"
-                azureContainerRegistry: "nginxplusingress"
-                azureSubscriptionEndpoint: $(azureSubscription)
-                azureResourceGroup: 'ACW'
-                kubernetesCluster: 'nginx-plus-ingress'
-                command: ls
-                arguments: --all
-
-            - task: HelmDeploy@0
               displayName: Helm Deploy
               inputs:
                 # Azure Container Registry
@@ -101,9 +88,9 @@ jobs:
                 kubernetesCluster: 'nginx-plus-ingress'
                 namespace: 'test'
                 command: 'install'
-                chartType: 'Name'
-                chartName: 'nginxplusingress.azurecr.io/helm/juice-shop'
-                valueFile: 'values.yaml'
+                chartType: 'FilePath'
+                chartPath: '$(Pipeline.Workspace)/'
+                releaseName: 'juice-shop'
 
             - task: KubernetesManifest@0
               displayName: Create DashboardSecret

@@ -25,32 +25,6 @@ variables:
   # Agent VM image name
   vmImageName: 'Default'
 
-
-#stages:
-  # - stage: Build
-  #   displayName: Build stage
-  #   jobs:
-  #   - job: Build
-  #     displayName: Build
-  #     pool:
-  #       vmImage: $(vmImageName)
-  #     steps:
-  #     - task: Docker@2
-  #       displayName: Build and push an image to container registry
-  #       inputs:
-  #         command: buildAndPush
-  #         repository: $(imageRepository)
-  #         dockerfile: $(dockerfilePath)
-  #         containerRegistry: $(dockerRegistryServiceConnection)
-  #         tags: |
-  #           $(tag)
-
-  #     - upload: manifests
-  #       artifact: manifests
-
-
-#  - stage: Deploy
-#    displayName: Deploy stage
 jobs:
   - deployment: Deploy
     displayName: Deploy
@@ -76,14 +50,6 @@ jobs:
             - task: HelmInstaller@1
               inputs:
                 helmVersionToInstall: 'latest'
-
-#            - task: AzureCLI@2
-#              displayName: Login to Azure Container Registry
-#              inputs:
-#                scriptType: bash
-#                scriptLocation: inlineScript
-#                inlineScript: |
-#                  helm registry login nginxplusingress.azurecr.io --username $(acr.pull.username) --password $(acr.pull.password)
 
 #            - task: HelmDeploy@0
 #              displayName: Helm Deploy
@@ -130,6 +96,7 @@ jobs:
                 command: 'install'
                 chartType: 'FilePath'
                 chartPath: '/azp/_work/1/juice-shop/chart/juice-shop-3.14.3.tgz'
+                releaseName: 'juice-shop'
 
             - task: KubernetesManifest@0
               displayName: Create DashboardSecret

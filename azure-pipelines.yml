@@ -127,7 +127,7 @@ jobs:
                 action: deploy
                 namespace: 'test'
                 manifests: |
-                  '/azp/_work/1/juice-shop/manifests/juice-shop-dashboard-secret.yml'
+                  /azp/_work/1/juice-shop/manifests/juice-shop-dashboard-secret.yml
                   
 
 

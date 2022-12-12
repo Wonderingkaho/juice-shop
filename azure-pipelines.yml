@@ -77,6 +77,12 @@ jobs:
               inputs:
                 helmVersionToInstall: 'latest'
 
+            # Docker CLI installer v0
+            # Install Docker CLI on agent machine.
+            - task: DockerInstaller@0
+              inputs:
+                dockerVersion: '17.09.0-ce' # string. Required. Docker Version. Default: 17.09.0-ce.
+
             - task: AzureCLI@2
               displayName: Login to Azure Container Registry
               inputs:

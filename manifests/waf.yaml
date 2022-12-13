@@ -7,6 +7,6 @@ spec:
     enable: true
     apPolicy: "dataguard-alarm"
     securityLogs:
-    - enable: false
+    - enable: true
       apLogConf: "logconf"
       logDest: "syslog:server=syslog-svc.demo:514"

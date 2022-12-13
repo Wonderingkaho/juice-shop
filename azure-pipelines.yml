@@ -59,9 +59,9 @@ jobs:
                   git pull
                   apt-get install unzip
 
-#            - task: HelmInstaller@1
-#              inputs:
-#                helmVersionToInstall: '3.9.4'
+            - task: HelmInstaller@1
+              inputs:
+                helmVersionToInstall: '3.9.4'
 
             - task: HelmDeploy@0
               displayName: Helm Deploy

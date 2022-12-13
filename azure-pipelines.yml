@@ -63,51 +63,51 @@ jobs:
               inputs:
                 helmVersionToInstall: '3.9.4'
 
-            - task: HelmDeploy@0
-              displayName: Helm Deploy
-              inputs:
-                # Azure Container Registry
-                azureSubscriptionEndpointForACR: $(azureSubscription)
-                azureResourceGroupForACR: "ACW"
-                azureContainerRegistry: "nginxplusingress"
-                connectionType: 'Azure Resource Manager'
-                azureSubscription: $(azureSubscription)
-                useClusterAdmin: true
-                azureResourceGroup: 'ACW'
-                kubernetesCluster: 'nginx-plus-ingress'
-                namespace: $(namespaces)
-                command: install
-                chartType: 'FilePath'
-                chartPath: '$(agentPath)/chart/juice-shop-3.14.3.tgz'
-                releaseName: 'juice-shop'
-
-            - task: KubernetesManifest@0
-              displayName: KubernetesManifest
-              inputs:
-                action: deploy
-                namespace: $(namespaces)
-                manifests: |
-                  $(agentPath)/manifests/juice-shop-dashboard-secret.yaml
-                  $(agentPath)/manifests/virtual-server.yaml
-                  $(agentPath)/manifests/waf.yaml
-                  $(agentPath)/manifests/ap-dataguard-alarm-policy.yaml
-                  $(agentPath)/manifests/ap-apple-uds.yaml
-                  $(agentPath)/manifests/syslog.yaml
-                  $(agentPath)/manifests/ap-logconf.yaml
-
-#            - task: KubernetesManifest@0
-#              displayName: Delete
+#            - task: HelmDeploy@0
+#              displayName: Helm Deploy
 #              inputs:
-#                action: delete
-#                arguments: deployment syslog
+#                # Azure Container Registry
+#                azureSubscriptionEndpointForACR: $(azureSubscription)
+#                azureResourceGroupForACR: "ACW"
+#                azureContainerRegistry: "nginxplusingress"
+#                connectionType: 'Azure Resource Manager'
+#                azureSubscription: $(azureSubscription)
+#                useClusterAdmin: true
+#                azureResourceGroup: 'ACW'
+#                kubernetesCluster: 'nginx-plus-ingress'
 #                namespace: $(namespaces)
+#                command: upgrade
+#                chartType: 'FilePath'
+#                chartPath: '$(agentPath)/chart/juice-shop-3.14.3.tgz'
+#                releaseName: 'juice-shop'
 #
 #            - task: KubernetesManifest@0
-#              displayName: Delete
+#              displayName: KubernetesManifest
 #              inputs:
-#                action: delete
-#                arguments: service syslog-svc
+#                action: deploy
 #                namespace: $(namespaces)
+#                manifests: |
+#                  $(agentPath)/manifests/juice-shop-dashboard-secret.yaml
+#                  $(agentPath)/manifests/virtual-server.yaml
+#                  $(agentPath)/manifests/waf.yaml
+#                  $(agentPath)/manifests/ap-dataguard-alarm-policy.yaml
+#                  $(agentPath)/manifests/ap-apple-uds.yaml
+#                  $(agentPath)/manifests/syslog.yaml
+#                  $(agentPath)/manifests/ap-logconf.yaml
+
+            - task: KubernetesManifest@0
+              displayName: Delete
+              inputs:
+                action: delete
+                arguments: deployment syslog
+                namespace: $(namespaces)
+
+            - task: KubernetesManifest@0
+              displayName: Delete
+              inputs:
+                action: delete
+                arguments: service syslog-svc
+                namespace: $(namespaces)
 
 
 
